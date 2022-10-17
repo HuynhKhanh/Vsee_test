@@ -5,7 +5,7 @@ SMTP_USER = 'kh928259@gmail.com'
 SMTP_PASS = 'Secret!'
 
 # Craft the email by hand
-from_email = 'My name <someone@example.com>'  # or simply the email address
+from_email = 'My name <someone@example.com>'
 to_emails = ['khanhhm.94@gmail.com', 'minhkhanh.huynh@shopee.com']
 body = "Hello, world!"
 headers = f"From: {from_email}\r\n"
