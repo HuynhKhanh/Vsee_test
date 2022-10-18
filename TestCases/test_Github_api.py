@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime, date
 
 
 def total(arr):
@@ -8,12 +9,17 @@ def total(arr):
     return sum
 
 
-def max_value_in_list(arr):
-    max_value = 0
-    for i in range(len(arr)):
-        if arr[i] > max_value:
-            max_value = arr[i]
-    return max_value
+def sort_date(date_list):
+    date_list.sort(key=lambda date: datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ"))
+    return date_list
+
+
+def get_max_value(tup):
+    maximum = tup[0]
+    for i in tup:
+        if i[1] > maximum[1]:
+            maximum = i
+    return maximum
 
 
 def test_total_issue():
@@ -25,12 +31,11 @@ def test_total_issue():
 
     list_issues = []
     for issues in json_response:
-        # print(issues["open_issues_count"])
         list_issues.append(issues["open_issues_count"])
 
     # Q1: How many total open issues are there across all repositories?
 
-    print("total open issues are there across all repositories", total(list_issues))
+    print("total open issues are there across all repositories:", total(list_issues))
 
 
 def test_sort_repo():
@@ -39,12 +44,13 @@ def test_sort_repo():
     assert code == 200, "Code doesn't match"
 
     json_response = resp.json()
-
     list_updated = []
 
     for days in json_response:
         list_updated.append(days["updated_at"])
-    print(list_updated)
+
+    print("repositories by date updated in descending order:\n")
+    print(sort_date(list_updated))
 
 
 def test_watcher_view():
@@ -55,7 +61,7 @@ def test_watcher_view():
     json_response = resp.json()
     max_watcher = []
     for i in json_response:
-        max_watcher.append(i["watchers"])
-        print("Repo: %s , watcher is %d" % (i["name"], i["watchers"]))
+        max_watcher.append((i["name"], i["watchers"]))
 
-    print("the most watchers", max_value_in_list(max_watcher))
+    maximum = get_max_value(max_watcher)
+    print("the most watchers is %d of repo %s" % (maximum[1], maximum[0]))
