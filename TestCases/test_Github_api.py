@@ -1,3 +1,5 @@
+from time import strptime
+
 import requests
 from datetime import datetime, date
 
@@ -12,6 +14,10 @@ def total(arr):
 def sort_date(date_list):
     date_list.sort(key=lambda date: datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ"))
     return date_list
+
+
+def sort_tuple(date_tuple):
+    return sorted(date_tuple, key=lambda x: strptime(x[0], "%Y-%m-%dT%H:%M:%SZ"))
 
 
 def get_max_value(tup):
@@ -47,10 +53,13 @@ def test_sort_repo():
     list_updated = []
 
     for days in json_response:
-        list_updated.append(days["updated_at"])
+        list_updated.append([days["updated_at"], days["name"]])
 
-    print("repositories by date updated in descending order:\n")
-    print(sort_date(list_updated))
+    print(sort_tuple(list_updated))
+
+    for i, sublist in enumerate(list_updated):
+        for j, item in enumerate(sublist):
+            print(list_updated[i][j])
 
 
 def test_watcher_view():
