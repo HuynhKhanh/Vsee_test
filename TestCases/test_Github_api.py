@@ -17,7 +17,7 @@ def sort_date(date_list):
 
 
 def sort_tuple(date_tuple):
-    return sorted(date_tuple, key=lambda x: strptime(x[0], "%Y-%m-%dT%H:%M:%SZ"))
+    return sorted(date_tuple, key=lambda x: strptime(x[0], "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
 
 
 def get_max_value(tup):
@@ -56,6 +56,7 @@ def test_sort_repo():
         list_updated.append([days["updated_at"], days["name"]])
 
     print(sort_tuple(list_updated))
+    list_updated = sort_tuple(list_updated)
 
     for i, sublist in enumerate(list_updated):
         for j, item in enumerate(sublist):
