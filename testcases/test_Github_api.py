@@ -60,7 +60,7 @@ def test_sort_repo():
 
     for i, sublist in enumerate(list_updated):
         for j, item in enumerate(sublist):
-            print(list_updated[i][j])
+            print(f"{item} in be {list_updated[i][j]}")
 
 
 def test_watcher_view():
