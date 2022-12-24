@@ -39,3 +39,6 @@ class Send_Email(unittest.TestCase):
         send_btn.click()
 
         time.sleep(5)
+
+
+
