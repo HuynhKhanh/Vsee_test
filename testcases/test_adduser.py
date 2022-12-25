@@ -14,3 +14,5 @@ class TestAddUser:
             add_member.accept_term()
         with allure.step("Click on button Submit"):
             add_member.submit_member()
+        with allure.step("Display message success"):
+            add_member.verify_message_after_add_member()
